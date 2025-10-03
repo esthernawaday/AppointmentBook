@@ -37,4 +37,15 @@ public class Appointmentbook {
         for (int i = 0; i < schedule[period - 1].length; i++)
             System.out.println(i + " " + schedule[period - 1][i]);
     }
+    public boolean reserveBlock(int startMinute, int duration, int period) {
+        for(int i = startMinute; i< startMinute + duration; i++) {
+            schedule[period - 1][i] = false;
+            int freeBlock = findFreeBlock(i, duration);
+            if (freeBlock > -1) {
+                reserveBlock(i, freeBlock, duration);
+                return true;
+            }
+        }
+        return false;
+    }
 }
