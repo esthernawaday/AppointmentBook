@@ -1,11 +1,13 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args)  throws IOException{
+        System.out.println(read());
         boolean[][] schedule = new boolean[8][60];
         Appointmentbook a = new Appointmentbook(schedule);
         for (int i = 30; i < 45; i++) schedule[1][i] = true;
@@ -31,8 +33,13 @@ public class Main {
             while (s.hasNextBoolean()){
                 schedule += s.nextBoolean() + "";
             }
+            Appointmentbook a = new Appointmentbook(readSchedule(schedule));
+            if (a.makeAppointment(s.nextInt(), s.nextInt(), s.nextInt())){
+                meetings++;
+            schedule = "";
         }
-        Appointmentbook a = new Appointmentbook(readSchedule(schedule));
+        }
+        return meetings;
     }
     public static boolean[][] readSchedule(String lines){
         Scanner s = new Scanner(lines);
